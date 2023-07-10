@@ -4,7 +4,6 @@ from typing import List
 def view_database(database: dict) -> str:
     accounts_list: List[str] = []
 
-    #test
     # Keeping track of the index and the account itself and adding
     # a string containing its data along with the index
     for index, account in enumerate(database.values()):
