@@ -20,6 +20,6 @@ def split_data() -> List[List[Union[str, float]]]:
 def load_data(database: dict) -> None:
     USER_ID_INDEX: int = 0
 
-    # Raising an instance of the account class using the @classmethod and using its user id as a key
+    # Instantiating the account class using its @classmethod
     for account in split_data():
         database[account[USER_ID_INDEX]] = Account.create_account(*account)

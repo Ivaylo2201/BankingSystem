@@ -1,3 +1,5 @@
+from typing import Dict, List
+from user_authentication.account import Account
 from user_authentication.login import login
 from user_authentication.register import register
 from user_authentication.change_password import change_password
@@ -6,7 +8,7 @@ from functions.primary_menu import show_primary_menu
 from functions.save_data import save_data
 from functions.load_data import load_data
 
-accounts_database = {}
+accounts_database: Dict[str, List[Account]] = {}
 load_data(accounts_database)
 
 while True:
