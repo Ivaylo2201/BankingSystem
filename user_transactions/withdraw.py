@@ -7,7 +7,7 @@ def withdraw(database: dict, user_id: str) -> None | str:
 
     if database[user_id].balance - amount >= 0:
         database[user_id].balance -= amount
-        print(f"You have successfully withdrawn {amount:,.2f}$")
+        print(f"You have successfully withdrawn ${amount:,.2f}")
 
     else:
         print("Insufficient funds!")

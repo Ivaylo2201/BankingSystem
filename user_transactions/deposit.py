@@ -6,4 +6,4 @@ def deposit(database: dict, user_id: str) -> None | str:
         return None
 
     database[user_id].balance += amount
-    print(f"You have successfully deposited {amount:,.2f}$")
+    print(f"You have successfully deposited ${amount:,.2f}")

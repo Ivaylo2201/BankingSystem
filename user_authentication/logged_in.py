@@ -14,7 +14,7 @@ def logged_in(database: dict, user_id: str) -> None:
             continue
 
         match operation:
-            case 1: print(f"Your current balance is: {database[user_id].balance:,.2f}$")
+            case 1: print(f"Your current balance is: ${database[user_id].balance:,.2f}")
             case 2: deposit(database, user_id)
             case 3: withdraw(database, user_id)
             case 4: print(f"Your User ID is: {database[user_id].user_id}")
