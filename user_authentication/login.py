@@ -1,15 +1,23 @@
+import psycopg2
+from colorama import Fore
 from user_authentication.logged_in import logged_in
+connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 
-def login(database: dict) -> None | str:
+def login() -> None:
+    Query = connection.cursor()
+
     username = input("Enter your username: ")
     password = input("Enter your password: ")
 
-    for account in database.values():
-        # If we have a match, bring up the secondary menu
-        if account.username == username and account.password == password:
-            print("Login successful!")
-            logged_in(database, account.user_id)
+    Query.execute("""SELECT id, username, password FROM account""")
+
+    for account in Query.fetchall():
+        user_id, user_username, user_password = account
+
+        if (username, password) == (user_username, user_password):
+            print(Fore.GREEN + "\nLogin successful!\n" + Fore.RESET)
+            logged_in(user_id)
             return None
 
-    print("Incorrect user credentials or account does not exist!")
+    print(Fore.RED + "\nIncorrect user credentials or account does not exist!\n" + Fore.RESET)

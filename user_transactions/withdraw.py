@@ -1,13 +1,22 @@
-def withdraw(database: dict, user_id: str) -> None | str:
+import psycopg2
+from colorama import Fore
+connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
+
+
+def withdraw(user_id: int) -> str:
+    Query = connection.cursor()
+
     try:
         amount = float(input("Enter withdraw amount: "))
     except ValueError:
-        print("An error has occurred!")
-        return None
+        return Fore.RED + "\nAn error has occurred!\n" + Fore.RESET
 
-    if database[user_id].balance - amount >= 0:
-        database[user_id].balance -= amount
-        print(f"You have successfully withdrawn ${amount:,.2f}")
+    Query.execute("""SELECT balance FROM ACCOUNT WHERE id = %s""", [user_id])
+    if Query.fetchone()[0] < amount:
+        return Fore.RED + "\nInsufficient funds!\n" + Fore.RESET
 
-    else:
-        print("Insufficient funds!")
+    Query.execute("""UPDATE account SET balance = balance - %s WHERE id = %s""", [amount, user_id])
+    connection.commit()
+    Query.close()
+
+    return Fore.GREEN + f"\nYou have successfully withdrawn ${amount:,.2f}\n" + Fore.RESET

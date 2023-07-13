@@ -1,9 +1,18 @@
-def deposit(database: dict, user_id: str) -> None | str:
+import psycopg2
+from colorama import Fore
+connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
+
+
+def deposit(user_id: int) -> str:
+    Query = connection.cursor()
+
     try:
         amount = float(input("Enter deposit amount: "))
     except ValueError:
-        print("An error has occurred!")
-        return None
+        return Fore.RED + "\nAn error has occurred!\n" + Fore.RESET
 
-    database[user_id].balance += amount
-    print(f"You have successfully deposited ${amount:,.2f}")
+    Query.execute("""UPDATE account SET balance = balance + %s WHERE id = %s""", [amount, user_id])
+    connection.commit()
+    Query.close()
+
+    return Fore.GREEN + f"\nYou have successfully deposited ${amount:,.2f}\n" + Fore.RESET

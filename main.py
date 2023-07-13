@@ -1,29 +1,24 @@
-from typing import Dict, List
-from user_authentication.account import Account
+from colorama import Fore
 from user_authentication.login import login
 from user_authentication.register import register
 from user_authentication.change_password import change_password
-from functions.view_database import view_database
 from functions.primary_menu import show_primary_menu
-from functions.save_data import save_data
-from functions.load_data import load_data
+from functions.create_database import create_database
 
-accounts_database: Dict[str, List[Account]] = {}
-load_data(accounts_database)
+create_database()
 
 while True:
-    show_primary_menu()
+    print(show_primary_menu())
 
     try:
         operation = int(input("Select operation: "))
     except ValueError:
-        print("Invalid operation!")
+        print(Fore.RED + "Invalid operation!" + Fore.RESET)
         continue
 
     match operation:
-        case 1: register(accounts_database)
-        case 2: login(accounts_database)
-        case 3: change_password(accounts_database)
-        case 4: print(view_database(accounts_database))
-        case 5: save_data(accounts_database)
-        case _: print("Invalid operation!")
+        case 1: register()
+        case 2: login()
+        case 3: print(change_password())
+        case 4: exit(0)
+        case _: print(Fore.RED + "Invalid operation!" + Fore.RESET)

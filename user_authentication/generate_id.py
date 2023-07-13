@@ -1,14 +1,17 @@
 import random
+import psycopg2
+connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 
-def generate_unique_id(database: dict) -> str:
-    taken_ids = [a.user_id for a in database.values()]
+def generate_unique_id() -> int:
+    Query = connection.cursor()
+    Query.execute("""SELECT id FROM account""")
+    taken_ids = [_id[0] for _id in Query.fetchall()]
 
-    # Generating an int->str. If it already exists generate a new one, else return it
     while True:
-        current_id = str(random.randint(100000, 999999))
+        unique_id = random.randint(100_000, 999_999)
 
-        if current_id in taken_ids:
+        if unique_id in taken_ids:
             continue
 
-        return current_id
+        return unique_id
