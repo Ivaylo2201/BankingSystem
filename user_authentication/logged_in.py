@@ -22,4 +22,4 @@ def logged_in(user_id: int) -> None:
             case 3: print(withdraw(user_id))
             case 4: print(get_user_id(user_id))
             case 5: break
-            case _: print("Invalid operation!")
+            case _: print(Fore.RED + "Invalid operation!" + Fore.RESET)
