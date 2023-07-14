@@ -3,6 +3,7 @@ from user_transactions.deposit import deposit
 from user_transactions.get_user_id import get_user_id
 from user_transactions.withdraw import withdraw
 from user_transactions.check_balance import check_balance
+from colorama import Fore
 
 
 def logged_in(user_id: int) -> None:
@@ -12,7 +13,7 @@ def logged_in(user_id: int) -> None:
         try:
             operation = int(input("Select operation: "))
         except ValueError:
-            print("Invalid operation!")
+            print(Fore.RED + "Invalid operation!" + Fore.RESET)
             continue
 
         match operation:
