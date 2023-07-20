@@ -1,5 +1,6 @@
 import psycopg2
 from colorama import Fore
+
 connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 

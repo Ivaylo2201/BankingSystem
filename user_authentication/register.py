@@ -2,6 +2,7 @@ import psycopg2
 from colorama import Fore
 from user_authentication.generate_id import generate_unique_id
 from user_authentication.validate_input import validate_input
+
 connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 

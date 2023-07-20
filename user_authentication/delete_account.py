@@ -20,8 +20,9 @@ def delete_account() -> tuple[bool, str]:
     else:
         return Fore.RED + "\nAn account with that User ID does not exist!\n" + Fore.RESET
 
-    confirmation = input(Fore.RED + "DANGER ZONE: Are you sure you want to delete your account? Type 'Confirm' to continue: "
-                         + Fore.RESET)
+    confirmation = input(
+        Fore.RED + "DANGER ZONE: Are you sure you want to delete your account? Type 'Confirm' to continue: "
+        + Fore.RESET)
 
     if confirmation != "Confirm":
         return terminated, Fore.RED + "\nConfirmation failed. Process terminated.\n" + Fore.RESET
