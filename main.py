@@ -11,14 +11,19 @@ while True:
     print(show_primary_menu())
 
     try:
-        operation = int(input("Select operation: "))
+        operation = int(input("\nSelect operation: "))
     except ValueError:
         print(Fore.RED + "Invalid operation!" + Fore.RESET)
         continue
 
     match operation:
-        case 1: register()
-        case 2: login()
-        case 3: print(change_password())
-        case 4: exit(0)
-        case _: print(Fore.RED + "Invalid operation!" + Fore.RESET)
+        case 1:
+            register()
+        case 2:
+            login()
+        case 3:
+            print(change_password())
+        case 4:
+            Fore.RESET, exit(0)
+        case _:
+            print(Fore.RED + "\nInvalid operation!\n" + Fore.RESET)

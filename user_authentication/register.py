@@ -8,7 +8,7 @@ connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgre
 def register() -> None:
     Query = connection.cursor()
 
-    username = input("Enter your username: ")
+    username = input("\nEnter your username: ")
     password = input("Enter your password: ")
 
     if validate_input(username, password):

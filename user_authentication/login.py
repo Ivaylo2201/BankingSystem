@@ -7,7 +7,7 @@ connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgre
 def login() -> None:
     Query = connection.cursor()
 
-    username = input("Enter your username: ")
+    username = input("\nEnter your username: ")
     password = input("Enter your password: ")
 
     Query.execute("""SELECT id, username, password FROM account""")

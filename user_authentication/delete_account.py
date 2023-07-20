@@ -1,9 +1,10 @@
 import psycopg2
 from colorama import Fore
+
 connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 
-def change_password() -> str:
+def delete_account() -> str:
     Query = connection.cursor()
 
     try:
@@ -18,12 +19,15 @@ def change_password() -> str:
     else:
         return Fore.RED + "\nAn account with that User ID does not exist!\n" + Fore.RESET
 
-    new_password = input("Enter your new password: ")
-    if len(new_password) < 5:
-        return Fore.RED + "\nPassword must be at least 5 characters long!\n" + Fore.RESET
+    confirmation = input(Fore.RED + "DANGER ZONE: Are you sure you want to delete your account? Type 'Confirm' to continue: "
+                         + Fore.RESET)
 
-    Query.execute("""UPDATE account SET password = %s WHERE id = %s""", [new_password, user_id])
+    if confirmation != "Confirm":
+        return Fore.RED + "\nConfirmation failed.\n" + Fore.RESET
+
+    Query.execute("""DELETE FROM account WHERE id = %s""", [user_id])
+
     connection.commit()
     Query.close()
 
-    return Fore.GREEN + "\nPassword successfully changed!\n" + Fore.RESET
+    return Fore.GREEN + "\nAccount deleted successfully!\n" + Fore.RESET
