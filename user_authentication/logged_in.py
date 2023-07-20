@@ -27,9 +27,12 @@ def logged_in(user_id: int) -> None:
             case 4:
                 print(get_user_id(user_id))
             case 5:
+                print()
                 break
             case 6:
-                print(delete_account())
-                break
+                terminated, message = delete_account()
+                print(message)
+                if not terminated:
+                    break
             case _:
                 print(Fore.RED + "Invalid operation!" + Fore.RESET)

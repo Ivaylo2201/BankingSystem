@@ -4,7 +4,8 @@ from colorama import Fore
 connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="22012003", port="2201")
 
 
-def delete_account() -> str:
+def delete_account() -> tuple[bool, str]:
+    terminated = True
     Query = connection.cursor()
 
     try:
@@ -23,11 +24,12 @@ def delete_account() -> str:
                          + Fore.RESET)
 
     if confirmation != "Confirm":
-        return Fore.RED + "\nConfirmation failed.\n" + Fore.RESET
+        return terminated, Fore.RED + "\nConfirmation failed. Process terminated.\n" + Fore.RESET
 
     Query.execute("""DELETE FROM account WHERE id = %s""", [user_id])
 
     connection.commit()
     Query.close()
 
-    return Fore.GREEN + "\nAccount deleted successfully!\n" + Fore.RESET
+    terminated = False
+    return terminated, Fore.GREEN + "\nAccount deleted successfully!\n" + Fore.RESET

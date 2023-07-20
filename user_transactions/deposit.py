@@ -5,6 +5,7 @@ connection = psycopg2.connect(host="localhost", dbname="postgres", user="postgre
 
 def deposit(user_id: int) -> str:
     Query = connection.cursor()
+    print()
 
     try:
         amount = float(input("Enter deposit amount: "))
